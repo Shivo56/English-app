@@ -1,0 +1,15 @@
+{
+  "name": "English App",
+  "short_name": "English",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0e0e14",
+  "theme_color": "#7c6fff",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/197/197374.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
