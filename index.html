@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English for Beginners</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap');
+
+  :root {
+    --bg: #0e0e14;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --accent: #7c6fff;
+    --accent2: #ff6f91;
+    --green: #3dffa0;
+    --text: #e8e8f0;
+    --muted: #7777a0;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    padding: 20px 16px 60px;
+  }
+
+  header { text-align: center; margin-bottom: 36px; padding-top: 10px; }
+  .flag { font-size: 2.2rem; margin-bottom: 8px; }
+
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7c6fff, #ff6f91);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header p { color: #7777a0; font-size: 0.9rem; margin-top: 6px; }
+
+  .progress-bar-wrap {
+    background: #2a2a3a;
+    border-radius: 99px;
+    height: 6px;
+    margin: 20px auto;
+    max-width: 400px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    background: linear-gradient(90deg, #7c6fff, #ff6f91);
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.5s ease;
+  }
+
+  .section { max-width: 560px; margin: 0 auto 28px; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #7c6fff;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .card {
+    background: #16161f;
+    border: 1px solid #2a2a3a;
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+
+  .vocab-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #2a2a3a;
+    cursor: pointer;
+  }
+  .vocab-item:last-child { border-bottom: none; }
+
+  .vocab-emoji { font-size: 1.6rem; width: 36px; text-align: center; flex-shrink: 0; }
+  .vocab-en { font-weight: 700; font-size: 1.05rem; }
+  .vocab-pron { font-size: 0.75rem; color: #7c6fff; font-style: italic; }
+  .vocab-fr { margin-left: auto; color: #7777a0; font-size: 0.88rem; flex-shrink: 0; }
+
+  .speaker-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 2px 4px;
+    flex-shrink: 0;
+  }
+
+  .phrase-card {
+    background: #16161f;
+    border: 1px solid #2a2a3a;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .phrase-num { font-size: 0.72rem; font-weight: 700; color: #ff6f91; margin-top: 3px; min-width: 18px; }
+  .phrase-en { font-weight: 600; font-size: 1rem; }
+  .phrase-fr { color: #7777a0; font-size: 0.85rem; margin-top: 3px; }
+  .phrase-pron { color: #7c6fff; font-size: 0.78rem; font-style: italic; margin-top: 2px; }
+
+  .quiz-question { font-weight: 600; font-size: 1rem; margin-bottom: 14px; line-height: 1.4; }
+
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .quiz-btn {
+    background: #0e0e14;
+    border: 1.5px solid #2a2a3a;
+    border-radius: 10px;
+    color: #e8e8f0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 10px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .quiz-btn.correct { border-color: #3dffa0; background: rgba(61,255,160,0.1); color: #3dffa0; }
+  .quiz-btn.wrong { border-color: #ff6f91; background: rgba(255,111,145,0.08); color: #ff6f91; }
+
+  .quiz-feedback { margin-top: 12px; font-size: 0.88rem; font-weight: 600; min-height: 20px; }
+  .quiz-feedback.ok { color: #3dffa0; }
+  .quiz-feedback.ko { color: #ff6f91; }
+
+  .next-btn {
+    display: none;
+    margin-top: 14px;
+    background: linear-gradient(135deg, #7c6fff, #ff6f91);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 11px 22px;
+    cursor: pointer;
+  }
+
+  .score-box { text-align: center; padding: 24px; display: none; }
+  .score-big {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #3dffa0, #7c6fff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .score-label { color: #7777a0; font-size: 0.9rem; margin-top: 4px; }
+  .restart-btn {
+    margin-top: 16px;
+    background: #2a2a3a;
+    border: none;
+    border-radius: 10px;
+    color: #e8e8f0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 22px;
+    cursor: pointer;
+  }
+
+  .grammar-rule {
+    background: rgba(124,111,255,0.07);
+    border-left: 3px solid #7c6fff;
+    border-radius: 0 10px 10px 0;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+  .grammar-rule .rule-title { font-weight: 700; font-size: 0.9rem; color: #7c6fff; margin-bottom: 8px; }
+  .example-row { display: flex; gap: 10px; align-items: center; margin-top: 6px; font-size: 0.9rem; }
+  .arrow { color: #7777a0; }
+  .en-ex { font-weight: 600; }
+  .fr-ex { color: #7777a0; }
+
+  .tip {
+    background: rgba(61,255,160,0.06);
+    border: 1px solid rgba(61,255,160,0.2);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #b0f0d0;
+  }
+  .tip strong { color: #3dffa0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="flag">🇬🇧</div>
+  <h1>English for Beginners</h1>
+  <p>Leçon 1 — Les bases pour démarrer</p>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+  </div>
+</header>
+
+<div class="section">
+  <div class="section-label">Section 1</div>
+  <div class="section-title">📦 Vocabulaire essentiel</div>
+  <p style="color:#7777a0; font-size:0.85rem; margin-bottom:14px;">Clique sur 🔊 pour entendre la prononciation.</p>
+  <div class="card">
+    <div class="vocab-item">
+      <span class="vocab-emoji">👋</span>
+      <div><div class="vocab-en">Hello / Hi</div><div class="vocab-pron">/hɛˈloʊ/ · /haɪ/</div></div>
+      <div class="vocab-fr">Bonjour / Salut</div>
+      <button class="speaker-btn" onclick="speak('Hello')">🔊</button>
+    </div>
+    <div class="vocab-item">
+      <span class="vocab-emoji">🙏</span>
+      <div><div class="vocab-en">Thank you</div><div class="vocab-pron">/θæŋk juː/</div></div>
+      <div class="vocab-fr">Merci</div>
+      <button class="speaker-btn" onclick="speak('Thank you')">🔊</button>
+    </div>
+    <div class="vocab-item">
+      <span class="vocab-emoji">😊</span>
+      <div><div class="vocab-en">Please</div><div class="vocab-pron">/pliːz/</div></div>
+      <div class="vocab-fr">S'il vous plaît</div>
+      <button class="speaker-btn" onclick="speak('Please')">🔊</button>
+    </div>
+    <div class="vocab-item">
+      <span class="vocab-emoji">😅</span>
+      <div><div class="vocab-en">Sorry</div><div class="vocab-pron">/ˈsɒri/</div></div>
+      <div class="vocab-fr">Désolé / Pardon</div>
+      <button class="speaker-btn" onclick="speak('Sorry')">🔊</button>
+    </div>
+    <div class="vocab-item">
+      <span class="vocab-emoji">👍</span>
+      <div><div class="vocab-en">Yes / No</div><div class="vocab-pron">/jɛs/ · /noʊ/</div></div>
+      <div class="vocab-fr">Oui / Non</div>
+      <button class="speaker-btn" onclick="speak('Yes')">🔊</button>
+    </div>
+    <div class="vocab-item">
+      <span class="vocab-emoji">🚪</span>
+      <div><div class="vocab-en">Goodbye / Bye</div><div class="vocab-pron">/ɡʊdˈbaɪ/</div></div>
+      <div class="vocab-fr">Au revoir</div>
+      <button class="speaker-btn" onclick="speak('Goodbye')">🔊</button>
+    </div>
+    <div class="vocab-item">
+      <span class="vocab-emoji">🤔</span>
+      <div><div class="vocab-en">I don't understand</div><div class="vocab-pron">/aɪ doʊnt ʌndəˈstænd/</div></div>
+      <div class="vocab-fr">Je ne comprends pas</div>
+      <button class="speaker-btn" onclick="speak('I don\'t understand')">🔊</button>
+    </div>
+    <div class="vocab-item">
+      <span class="vocab-emoji">🐢</span>
+      <div><div class="vocab-en">Can you repeat?</div><div class="vocab-pron">/kæn juː rɪˈpiːt/</div></div>
+      <div class="vocab-fr">Pouvez-vous répéter?</div>
+      <button class="speaker-btn" onclick="speak('Can you repeat?')">🔊</button>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Section 2</div>
+  <div class="section-title">📐 Grammaire de base</div>
+  <div class="grammar-rule">
+    <div class="rule-title">Les pronoms sujets</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:0.88rem; margin-top:6px;">
+      <div>I → Je</div><div>We → Nous</div>
+      <div>You → Tu / Vous</div><div>They → Ils / Elles</div>
+      <div>He → Il</div><div>She → Elle</div>
+      <div>It → Il / Elle (objet)</div><div></div>
+    </div>
+  </div>
+  <div class="grammar-rule">
+    <div class="rule-title">Le verbe "to be" (être)</div>
+    <div class="example-row"><span class="en-ex">I am</span><span class="arrow">→</span><span class="fr-ex">Je suis</span></div>
+    <div class="example-row"><span class="en-ex">You are</span><span class="arrow">→</span><span class="fr-ex">Tu es</span></div>
+    <div class="example-row"><span class="en-ex">He / She / It is</span><span class="arrow">→</span><span class="fr-ex">Il / Elle est</span></div>
+    <div class="example-row"><span class="en-ex">We are</span><span class="arrow">→</span><span class="fr-ex">Nous sommes</span></div>
+    <div class="example-row"><span class="en-ex">They are</span><span class="arrow">→</span><span class="fr-ex">Ils sont</span></div>
+  </div>
+  <div class="tip">
+    💡 <strong>Astuce :</strong> En anglais, le sujet est <strong>toujours obligatoire</strong>. On ne dit pas <em>"Is happy"</em> mais <em>"She is happy"</em>.
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Section 3</div>
+  <div class="section-title">💬 Phrases du quotidien</div>
+  <div class="phrase-card">
+    <div class="phrase-num">01</div>
+    <div><div class="phrase-en">What is your name?</div><div class="phrase-pron">/wɒt ɪz jɔːr neɪm/</div><div class="phrase-fr">Comment tu t'appelles ?</div></div>
+    <button class="speaker-btn" onclick="speak('What is your name?')" style="margin-left:auto">🔊</button>
+  </div>
+  <div class="phrase-card">
+    <div class="phrase-num">02</div>
+    <div><div class="phrase-en">My name is Nouhou.</div><div class="phrase-pron">/maɪ neɪm ɪz .../</div><div class="phrase-fr">Je m'appelle Nouhou.</div></div>
+    <button class="speaker-btn" onclick="speak('My name is Nouhou.')" style="margin-left:auto">🔊</button>
+  </div>
+  <div class="phrase-card">
+    <div class="phrase-num">03</div>
+    <div><div class="phrase-en">How are you?</div><div class="phrase-pron">/haʊ ɑːr juː/</div><div class="phrase-fr">Comment ça va ?</div></div>
+    <button class="speaker-btn" onclick="speak('How are you?')" style="margin-left:auto">🔊</button>
+  </div>
+  <div class="phrase-card">
+    <div class="phrase-num">04</div>
+    <div><div class="phrase-en">I am fine, thank you!</div><div class="phrase-pron">/aɪ æm faɪn θæŋk juː/</div><div class="phrase-fr">Je vais bien, merci !</div></div>
+    <button class="speaker-btn" onclick="speak('I am fine, thank you!')" style="margin-left:auto">🔊</button>
+  </div>
+  <div class="phrase-card">
+    <div class="phrase-num">05</div>
+    <div><div class="phrase-en">Where are you from?</div><div class="phrase-pron">/wɛr ɑːr juː frɒm/</div><div class="phrase-fr">Tu viens d'où ?</div></div>
+    <button class="speaker-btn" onclick="speak('Where are you from?')" style="margin-left:auto">🔊</button>
+  </div>
+  <div class="phrase-card">
+    <div class="phrase-num">06</div>
+    <div><div class="phrase-en">I am from Senegal.</div><div class="phrase-pron">/aɪ æm frɒm .../</div><div class="phrase-fr">Je viens du Sénégal.</div></div>
+    <button class="speaker-btn" onclick="speak('I am from Senegal.')" style="margin-left:auto">🔊</button>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Section 4</div>
+  <div class="section-title">🧪 Quiz rapide</div>
+  <div class="card" id="quizContainer">
+    <div id="quizInner"></div>
+    <div class="score-box" id="scoreBox">
+      <div class="score-big" id="scoreBig"></div>
+      <div class="score-label">Score final</div>
+      <div id="scoreMsg" style="margin-top:10px; font-size:0.9rem; color:#7777a0"></div>
+      <button class="restart-btn" onclick="startQuiz()">🔄 Recommencer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function speak(text) {
+    if (!window.speechSynthesis) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.85;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }
+
+  const questions = [
+    { q: "Comment dit-on 'Merci' en anglais ?", opts: ["Sorry", "Please", "Thank you", "Hello"], ans: 2 },
+    { q: "Complète : 'She ___ happy.'", opts: ["am", "are", "is", "be"], ans: 2 },
+    { q: "Que veut dire 'Where are you from?' ?", opts: ["Comment vas-tu ?", "Tu t'appelles comment ?", "Tu viens d'où ?", "Quel âge as-tu ?"], ans: 2 },
+    { q: "Comment dit-on 'Je suis' en anglais ?", opts: ["I are", "I is", "I am", "I be"], ans: 2 },
+    { q: "Quelle phrase signifie 'Je ne comprends pas' ?", opts: ["I don't know", "I don't understand", "I can't hear", "I don't speak"], ans: 1 },
+    { q: "Comment dit-on 'Au revoir' en anglais ?", opts: ["Hello", "Sorry", "Please", "Goodbye"], ans: 3 }
+  ];
+
+  let current = 0, score = 0, answered = false;
+
+  function updateProgress() {
+    document.getElementById('progressBar').style.width = Math.round((current / questions.length) * 100) + '%';
+  }
+
+  function renderQuestion() {
+    const q = questions[current];
+    answered = false;
+    document.getElementById('scoreBox').style.display = 'none';
+    document.getElementById('quizInner').style.display = 'block';
+    let html = `<div class="quiz-question">Q${current + 1}/${questions.length} — ${q.q}</div><div class="quiz-options">`;
+    q.opts.forEach((opt, i) => { html += `<button class="quiz-btn" onclick="answer(${i})">${opt}</button>`; });
+    html += `</div><div class="quiz-feedback" id="feedback"></div>`;
+    html += `<button class="next-btn" id="nextBtn" onclick="nextQ()">${current < questions.length - 1 ? 'Question suivante →' : 'Voir mon score 🎯'}</button>`;
+    document.getElementById('quizInner').innerHTML = html;
+    updateProgress();
+  }
+
+  function answer(idx) {
+    if (answered) return;
+    answered = true;
+    const q = questions[current];
+    const btns = document.querySelectorAll('.quiz-btn');
+    btns.forEach(b => b.disabled = true);
+    const feedback = document.getElementById('feedback');
+    if (idx === q.ans) {
+      btns[idx].classList.add('correct');
+      feedback.textContent = '✅ Correct ! Bien joué.';
+      feedback.className = 'quiz-feedback ok';
+      score++;
+    } else {
+      btns[idx].classList.add('wrong');
+      btns[q.ans].classList.add('correct');
+      feedback.textContent = `❌ La bonne réponse était : "${q.opts[q.ans]}"`;
+      feedback.className = 'quiz-feedback ko';
+    }
+    document.getElementById('nextBtn').style.display = 'inline-block';
+  }
+
+  function nextQ() {
+    current++;
+    if (current < questions.length) { renderQuestion(); } else { showScore(); }
+  }
+
+  function showScore() {
+    document.getElementById('quizInner').style.display = 'none';
+    document.getElementById('scoreBox').style.display = 'block';
+    document.getElementById('scoreBig').textContent = `${score} / ${questions.length}`;
+    const pct = score / questions.length;
+    let msg = pct === 1 ? '🔥 Parfait !' : pct >= 0.7 ? '👍 Bien joué !' : pct >= 0.5 ? '😅 Pas mal pour un début !' : '📚 Relis la leçon et retente !';
+    document.getElementById('scoreMsg').textContent = msg;
+    document.getElementById('progressBar').style.width = '100%';
+  }
+
+  function startQuiz() { current = 0; score = 0; answered = false; renderQuestion(); }
+  startQuiz();
+</script>
+</body>
+  </html>
