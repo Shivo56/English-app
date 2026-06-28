@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English App</title>
+<link rel="manifest" href="manifest.json">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap');
+
+  :root {
+    --bg: #0e0e14;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --accent: #7c6fff;
+    --accent2: #ff6f91;
+    --yellow: #ffd166;
+    --green: #3dffa0;
+    --text: #e8e8f0;
+    --muted: #7777a0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    padding: 40px 20px 60px;
+  }
+
+  header { text-align: center; margin-bottom: 50px; }
+
+  .logo { font-size: 3rem; margin-bottom: 12px; }
+
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #7c6fff, #ff6f91);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header p { color: var(--muted); font-size: 0.9rem; margin-top: 8px; }
+
+  .subtitle {
+    display: inline-block;
+    margin-top: 14px;
+    background: rgba(124,111,255,0.1);
+    border: 1px solid rgba(124,111,255,0.2);
+    border-radius: 99px;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    letter-spacing: 0.05em;
+  }
+
+  .lessons { max-width: 480px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .lesson-card {
+    display: block;
+    text-decoration: none;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 14px;
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: pointer;
+  }
+  .lesson-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .lesson-card.l1 { border-left: 3px solid var(--accent); }
+  .lesson-card.l1:hover { border-color: var(--accent); }
+
+  .lesson-card.l2 { border-left: 3px solid var(--yellow); }
+  .lesson-card.l2:hover { border-color: var(--yellow); }
+
+  .lesson-card.l3 {
+    border-left: 3px solid var(--border);
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+
+  .card-icon { font-size: 1.8rem; }
+
+  .card-num {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .card-desc {
+    font-size: 0.84rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+  .tag {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    color: var(--muted);
+  }
+
+  .tag.accent { background: rgba(124,111,255,0.1); border-color: rgba(124,111,255,0.2); color: var(--accent); }
+  .tag.yellow { background: rgba(255,209,102,0.1); border-color: rgba(255,209,102,0.2); color: var(--yellow); }
+  .tag.green { background: rgba(61,255,160,0.1); border-color: rgba(61,255,160,0.2); color: var(--green); }
+
+  .arrow {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 1.2rem;
+    align-self: center;
+  }
+
+  .progress-section {
+    max-width: 480px;
+    margin: 30px auto 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+  }
+
+  .progress-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+
+  .prog-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+  }
+  .prog-item:last-child { margin-bottom: 0; }
+
+  .prog-label { color: var(--text); min-width: 90px; font-weight: 600; }
+
+  .prog-bar-wrap {
+    flex: 1;
+    background: var(--border);
+    border-radius: 99px;
+    height: 5px;
+    overflow: hidden;
+  }
+  .prog-bar {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .prog-pct { color: var(--muted); font-size: 0.78rem; min-width: 30px; text-align: right; }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🇬🇧</div>
+  <h1>English App</h1>
+  <p>Prépare ton bac avec les bases de l'anglais</p>
+  <span class="subtitle">✨ 2 leçons disponibles</span>
+</header>
+
+<div class="lessons">
+  <div class="section-label">📖 Mes leçons</div>
+
+  <a href="lesson1.html" class="lesson-card l1">
+    <div class="card-top">
+      <div class="card-icon">👋</div>
+      <div>
+        <div class="card-num">Leçon 1</div>
+        <div class="card-title">Les bases de l'anglais</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+    <div class="card-desc">Vocabulaire essentiel, pronoms, verbe "to be" et phrases du quotidien.</div>
+    <div class="card-tags">
+      <span class="tag accent">Vocabulaire</span>
+      <span class="tag accent">Grammaire</span>
+      <span class="tag accent">Quiz 6 questions</span>
+    </div>
+  </a>
+
+  <a href="lesson2.html" class="lesson-card l2">
+    <div class="card-top">
+      <div class="card-icon">📚</div>
+      <div>
+        <div class="card-num">Leçon 2</div>
+        <div class="card-title">Verbes irréguliers</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+    <div class="card-desc">Les 25 verbes irréguliers indispensables pour le bac avec astuces mémoire.</div>
+    <div class="card-tags">
+      <span class="tag yellow">25 verbes</span>
+      <span class="tag yellow">Astuces</span>
+      <span class="tag yellow">Quiz 10 questions</span>
+    </div>
+  </a>
+
+  <div class="lesson-card l3">
+    <div class="card-top">
+      <div class="card-icon">🔒</div>
+      <div>
+        <div class="card-num">Leçon 3</div>
+        <div class="card-title">Bientôt disponible...</div>
+      </div>
+    </div>
+    <div class="card-desc">Les temps en anglais — présent, passé, futur.</div>
+    <div class="card-tags">
+      <span class="tag">Coming soon</span>
+    </div>
+  </div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-title">📊 Ta progression</div>
+  <div class="prog-item">
+    <div class="prog-label">Leçon 1</div>
+    <div class="prog-bar-wrap"><div class="prog-bar" style="width: 100%"></div></div>
+    <div class="prog-pct">✅</div>
+  </div>
+  <div class="prog-item">
+    <div class="prog-label">Leçon 2</div>
+    <div class="prog-bar-wrap"><div class="prog-bar" style="width: 100%"></div></div>
+    <div class="prog-pct">✅</div>
+  </div>
+  <div class="prog-item">
+    <div class="prog-label">Leçon 3</div>
+    <div class="prog-bar-wrap"><div class="prog-bar" style="width: 0%"></div></div>
+    <div class="prog-pct">🔒</div>
+  </div>
+</div>
+
+<footer>Made with ❤️ for the bac 🎓</footer>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js');
+  }
+</script>
+
+</body>
+</html>
