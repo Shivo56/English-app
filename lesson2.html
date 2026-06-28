@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leçon 2 - Verbes Irréguliers</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&display=swap');
+
+  :root {
+    --bg: #0e0e14;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --accent: #7c6fff;
+    --accent2: #ff6f91;
+    --green: #3dffa0;
+    --yellow: #ffd166;
+    --text: #e8e8f0;
+    --muted: #7777a0;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    min-height: 100vh;
+    padding: 20px 16px 60px;
+  }
+
+  header { text-align: center; margin-bottom: 36px; padding-top: 10px; }
+  .flag { font-size: 2.2rem; margin-bottom: 8px; }
+
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffd166, #ff6f91);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header p { color: var(--muted); font-size: 0.9rem; margin-top: 6px; }
+
+  .section { max-width: 560px; margin: 0 auto 28px; }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  .tip {
+    background: rgba(255,209,102,0.07);
+    border: 1px solid rgba(255,209,102,0.25);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #f0e0b0;
+    margin-bottom: 16px;
+  }
+  .tip strong { color: var(--yellow); }
+
+  .verb-table {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .verb-header {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    background: rgba(124,111,255,0.1);
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    gap: 4px;
+  }
+
+  .verb-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    padding: 11px 14px;
+    border-top: 1px solid var(--border);
+    gap: 4px;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .verb-row:hover { background: rgba(255,255,255,0.03); }
+
+  .verb-fr { color: var(--muted); font-size: 0.82rem; }
+  .verb-base { font-weight: 700; font-size: 0.95rem; color: var(--text); }
+  .verb-past { color: var(--yellow); font-weight: 600; font-size: 0.9rem; }
+  .verb-pp { color: var(--green); font-weight: 600; font-size: 0.9rem; }
+
+  .example-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+
+  .ex-verb {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--yellow);
+    margin-bottom: 8px;
+  }
+
+  .ex-sentence { font-size: 0.9rem; line-height: 1.5; margin-bottom: 4px; }
+  .ex-sentence .highlight { color: var(--yellow); font-weight: 700; }
+  .ex-fr { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+
+  .speaker-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 2px 4px;
+    opacity: 0.7;
+    float: right;
+  }
+
+  .memory-card {
+    background: rgba(61,255,160,0.05);
+    border: 1px solid rgba(61,255,160,0.15);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .memory-title { color: var(--green); font-weight: 700; margin-bottom: 6px; font-size: 0.85rem; }
+  .memory-content { color: #b0f0d0; }
+  .memory-content em { color: var(--yellow); font-style: normal; font-weight: 700; }
+
+  .quiz-question { font-weight: 600; font-size: 1rem; margin-bottom: 14px; line-height: 1.4; }
+  .quiz-sub { color: var(--muted); font-size: 0.82rem; margin-top: 4px; font-weight: 400; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .quiz-btn {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 12px 10px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .quiz-btn.correct { border-color: var(--green); background: rgba(61,255,160,0.1); color: var(--green); }
+  .quiz-btn.wrong { border-color: var(--accent2); background: rgba(255,111,145,0.08); color: var(--accent2); }
+
+  .quiz-feedback { margin-top: 12px; font-size: 0.88rem; font-weight: 600; min-height: 20px; }
+  .quiz-feedback.ok { color: var(--green); }
+  .quiz-feedback.ko { color: var(--accent2); }
+
+  .next-btn {
+    display: none;
+    margin-top: 14px;
+    background: linear-gradient(135deg, var(--yellow), var(--accent2));
+    border: none;
+    border-radius: 10px;
+    color: #111;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 11px 22px;
+    cursor: pointer;
+  }
+
+  .score-box { text-align: center; padding: 24px; display: none; }
+  .score-big {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--yellow), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .score-label { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+  .restart-btn {
+    margin-top: 16px;
+    background: var(--border);
+    border: none;
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 22px;
+    cursor: pointer;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+
+  .progress-bar-wrap {
+    background: var(--border);
+    border-radius: 99px;
+    height: 6px;
+    margin: 20px auto;
+    max-width: 400px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    background: linear-gradient(90deg, var(--yellow), var(--accent2));
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.5s ease;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(255,209,102,0.15);
+    border: 1px solid rgba(255,209,102,0.3);
+    border-radius: 99px;
+    color: var(--yellow);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="flag">📚</div>
+  <h1>Verbes Irréguliers</h1>
+  <p>Leçon 2 — Les indispensables du bac</p>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+  </div>
+</header>
+
+<div class="section">
+  <div class="section-label">Section 1</div>
+  <div class="section-title">🤔 C'est quoi un verbe irrégulier ?</div>
+  <div class="tip">
+    <strong>💡 En français</strong>, tous les verbes au passé suivent une règle.<br><br>
+    <strong>En anglais</strong>, les verbes réguliers ajoutent juste <strong>-ed</strong> : <em>walk → walked</em>.<br><br>
+    Mais les verbes <strong>irréguliers</strong> changent complètement ! Il faut les <strong>apprendre par cœur</strong> 😅
+  </div>
+  <div class="tip" style="background:rgba(124,111,255,0.07); border-color:rgba(124,111,255,0.2); color:#c0b8f8;">
+    <strong style="color:var(--accent);">📌 Les 3 formes :</strong><br><br>
+    <strong style="color:var(--text);">Base</strong> → présent<br>
+    <strong style="color:var(--yellow);">Prétérit</strong> → passé simple<br>
+    <strong style="color:var(--green);">Participe passé</strong> → avec have/has
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Section 2</div>
+  <div class="section-title">📋 Les 25 verbes essentiels <span class="badge">BAC</span></div>
+  <p style="color:var(--muted); font-size:0.82rem; margin-bottom:12px;">Clique sur une ligne pour entendre 🔊</p>
+  <div class="verb-table">
+    <div class="verb-header">
+      <div>Français</div><div>Base</div><div>Prétérit</div><div>Participe</div>
+    </div>
+    <div class="verb-row" onclick="speak('be, was were, been')"><div class="verb-fr">être</div><div class="verb-base">be</div><div class="verb-past">was/were</div><div class="verb-pp">been</div></div>
+    <div class="verb-row" onclick="speak('have, had, had')"><div class="verb-fr">avoir</div><div class="verb-base">have</div><div class="verb-past">had</div><div class="verb-pp">had</div></div>
+    <div class="verb-row" onclick="speak('do, did, done')"><div class="verb-fr">faire</div><div class="verb-base">do</div><div class="verb-past">did</div><div class="verb-pp">done</div></div>
+    <div class="verb-row" onclick="speak('go, went, gone')"><div class="verb-fr">aller</div><div class="verb-base">go</div><div class="verb-past">went</div><div class="verb-pp">gone</div></div>
+    <div class="verb-row" onclick="speak('say, said, said')"><div class="verb-fr">dire</div><div class="verb-base">say</div><div class="verb-past">said</div><div class="verb-pp">said</div></div>
+    <div class="verb-row" onclick="speak('get, got, gotten')"><div class="verb-fr">obtenir</div><div class="verb-base">get</div><div class="verb-past">got</div><div class="verb-pp">gotten</div></div>
+    <div class="verb-row" onclick="speak('make, made, made')"><div class="verb-fr">fabriquer</div><div class="verb-base">make</div><div class="verb-past">made</div><div class="verb-pp">made</div></div>
+    <div class="verb-row" onclick="speak('know, knew, known')"><div class="verb-fr">savoir</div><div class="verb-base">know</div><div class="verb-past">knew</div><div class="verb-pp">known</div></div>
+    <div class="verb-row" onclick="speak('think, thought, thought')"><div class="verb-fr">penser</div><div class="verb-base">think</div><div class="verb-past">thought</div><div class="verb-pp">thought</div></div>
+    <div class="verb-row" onclick="speak('take, took, taken')"><div class="verb-fr">prendre</div><div class="verb-base">take</div><div class="verb-past">took</div><div class="verb-pp">taken</div></div>
+    <div class="verb-row" onclick="speak('see, saw, seen')"><div class="verb-fr">voir</div><div class="verb-base">see</div><div class="verb-past">saw</div><div class="verb-pp">seen</div></div>
+    <div class="verb-row" onclick="speak('come, came, come')"><div class="verb-fr">venir</div><div class="verb-base">come</div><div class="verb-past">came</div><div class="verb-pp">come</div></div>
+    <div class="verb-row" onclick="speak('give, gave, given')"><div class="verb-fr">donner</div><div class="verb-base">give</div><div class="verb-past">gave</div><div class="verb-pp">given</div></div>
+    <div class="verb-row" onclick="speak('find, found, found')"><div class="verb-fr">trouver</div><div class="verb-base">find</div><div class="verb-past">found</div><div class="verb-pp">found</div></div>
+    <div class="verb-row" onclick="speak('tell, told, told')"><div class="verb-fr">raconter</div><div class="verb-base">tell</div><div class="verb-past">told</div><div class="verb-pp">told</div></div>
+    <div class="verb-row" onclick="speak('write, wrote, written')"><div class="verb-fr">écrire</div><div class="verb-base">write</div><div class="verb-past">wrote</div><div class="verb-pp">written</div></div>
+    <div class="verb-row" onclick="speak('speak, spoke, spoken')"><div class="verb-fr">parler</div><div class="verb-base">speak</div><div class="verb-past">spoke</div><div class="verb-pp">spoken</div></div>
+    <div class="verb-row" onclick="speak('run, ran, run')"><div class="verb-fr">courir</div><div class="verb-base">run</div><div class="verb-past">ran</div><div class="verb-pp">run</div></div>
+    <div class="verb-row" onclick="speak('eat, ate, eaten')"><div class="verb-fr">manger</div><div class="verb-base">eat</div><div class="verb-past">ate</div><div class="verb-pp">eaten</div></div>
+    <div class="verb-row" onclick="speak('buy, bought, bought')"><div class="verb-fr">acheter</div><div class="verb-base">buy</div><div class="verb-past">bought</div><div class="verb-pp">bought</div></div>
+    <div class="verb-row" onclick="speak('bring, brought, brought')"><div class="verb-fr">apporter</div><div class="verb-base">bring</div><div class="verb-past">brought</div><div class="verb-pp">brought</div></div>
+    <div class="verb-row" onclick="speak('begin, began, begun')"><div class="verb-fr">commencer</div><div class="verb-base">begin</div><div class="verb-past">began</div><div class="verb-pp">begun</div></div>
+    <div class="verb-row" onclick="speak('leave, left, left')"><div class="verb-fr">partir</div><div class="verb-base">leave</div><div class="verb-past">left</div><div class="verb-pp">left</div></div>
+    <div class="verb-row" onclick="speak('put, put, put')"><div class="verb-fr">mettre</div><div class="verb-base">put</div><div class="verb-past">put</div><div class="verb-pp">put</div></div>
+    <div class="verb-row" onclick="speak('win, won, won')"><div class="verb-fr">gagner</div><div class="verb-base">win</div><div class="verb-past">won</div><div class="verb-pp">won</div></div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Section 3</div>
+  <div class="section-title">🧠 Astuces pour mémoriser</div>
+  <div class="memory-card">
+    <div class="memory-title">🔁 Groupe 1 — Les verbes qui ne changent pas</div>
+    <div class="memory-content"><em>put → put → put</em><br>Ces verbes sont pareils aux 3 formes. Facile !</div>
+  </div>
+  <div class="memory-card">
+    <div class="memory-title">✌️ Groupe 2 — Prétérit = Participe passé</div>
+    <div class="memory-content">
+      <em>have → had → had</em><br>
+      <em>say → said → said</em><br>
+      <em>make → made → made</em><br>
+      <em>find → found → found</em><br>
+      <em>buy → bought → bought</em><br>
+      Les 2 dernières formes sont identiques !
+    </div>
+  </div>
+  <div class="memory-card">
+    <div class="memory-title">🔀 Groupe 3 — Les 3 formes différentes</div>
+    <div class="memory-content">
+      <em>go → went → gone</em><br>
+      <em>begin → began → begun</em><br>
+      <em>write → wrote → written</em><br>
+      Ceux-là, il faut les apprendre par cœur 😅
+    </div>
+  </div>
+  <div class="memory-card">
+    <div class="memory-title">⚽ Astuce CR7</div>
+    <div class="memory-content">
+      Ronaldo <em>wins</em> every match → Ronaldo <em>won</em> every match → Ronaldo has <em>won</em> everything 🐐
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Section 4</div>
+  <div class="section-title">💬 Exemples en contexte</div>
+  <div class="example-card">
+    <div class="ex-verb">go → went → gone</div>
+    <button class="speaker-btn" onclick="speak('She went to school yesterday.')">🔊</button>
+    <div class="ex-sentence">She <span class="highlight">went</span> to school yesterday.</div>
+    <div class="ex-fr">Elle est allée à l'école hier.</div>
+    <div class="ex-sentence" style="margin-top:8px;">She has <span class="highlight">gone</span> to Dakar.</div>
+    <div class="ex-fr">Elle est partie à Dakar.</div>
+  </div>
+  <div class="example-card">
+    <div class="ex-verb">write → wrote → written</div>
+    <button class="speaker-btn" onclick="speak('He wrote a letter.')">🔊</button>
+    <div class="ex-sentence">He <span class="highlight">wrote</span> a letter last week.</div>
+    <div class="ex-fr">Il a écrit une lettre la semaine dernière.</div>
+  </div>
+  <div class="example-card">
+    <div class="ex-verb">see → saw → seen</div>
+    <button class="speaker-btn" onclick="speak('I saw Ronaldo score.')">🔊</button>
+    <div class="ex-sentence">I <span class="highlight">saw</span> Ronaldo score at the World Cup.</div>
+    <div class="ex-fr">J'ai vu Ronaldo marquer à la Coupe du Monde.</div>
+  </div>
+  <div class="example-card">
+    <div class="ex-verb">buy → bought → bought</div>
+    <button class="speaker-btn" onclick="speak('She bought a new phone.')">🔊</button>
+    <div class="ex-sentence">She <span class="highlight">bought</span> a new phone.</div>
+    <div class="ex-fr">Elle a acheté un nouveau téléphone.</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Section 5</div>
+  <div class="section-title">🧪 Quiz — Verbes irréguliers</div>
+  <div class="card" id="quizContainer">
+    <div id="quizInner"></div>
+    <div class="score-box" id="scoreBox">
+      <div class="score-big" id="scoreBig"></div>
+      <div class="score-label">Score final</div>
+      <div id="scoreMsg" style="margin-top:10px; font-size:0.9rem; color:var(--muted)"></div>
+      <button class="restart-btn" onclick="startQuiz()">🔄 Recommencer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function speak(text) {
+    if (!window.speechSynthesis) return;
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US';
+    u.rate = 0.85;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(u);
+  }
+
+  const questions = [
+    { q: "Quel est le prétérit de 'go' ?", sub: "go → ? → gone", opts: ["goed", "went", "gone", "goes"], ans: 1 },
+    { q: "Quel est le participe passé de 'write' ?", sub: "write → wrote → ?", opts: ["writed", "wrote", "written", "writing"], ans: 2 },
+    { q: "Complète : 'She ___ a new dress yesterday.'", sub: "Utilise 'buy' au passé", opts: ["buyed", "buys", "bought", "buy"], ans: 2 },
+    { q: "Quel est le prétérit de 'see' ?", sub: "see → ? → seen", opts: ["seed", "seen", "saw", "sees"], ans: 2 },
+    { q: "Complète : 'He ___ me the truth.'", sub: "Utilise 'tell' au passé", opts: ["telled", "told", "tells", "tell"], ans: 1 },
+    { q: "Quel verbe ne change jamais de forme ?", sub: "Base = Prétérit = Participe passé", opts: ["go", "write", "put", "see"], ans: 2 },
+    { q: "Prétérit de 'think' ?", sub: "think → ? → thought", opts: ["thinked", "thought", "thinks", "thunk"], ans: 1 },
+    { q: "Complète : 'Ronaldo has ___ many trophies.'", sub: "Utilise 'win' au participe passé", opts: ["winned", "won", "win", "wins"], ans: 1 },
+    { q: "Quel est le prétérit de 'begin' ?", sub: "begin → ? → begun", opts: ["beginned", "begun", "began", "begins"], ans: 2 },
+    { q: "Participe passé de 'speak' ?", sub: "speak → spoke → ?", opts: ["speaked", "spoke", "spoken", "speaking"], ans: 2 },
+  ];
+
+  let current = 0, score = 0, answered = false;
+
+  function updateProgress() {
+    document.getElementById('progressBar').style.width = Math.round((current / questions.length) * 100) + '%';
+  }
+
+  function renderQuestion() {
+    const q = questions[current];
+    answered = false;
+    document.getElementById('scoreBox').style.display = 'none';
+    document.getElementById('quizInner').style.display = 'block';
+    let html = `<div class="quiz-question">Q${current + 1}/${questions.length} — ${q.q}<div class="quiz-sub">${q.sub}</div></div><div class="quiz-options">`;
+    q.opts.forEach((opt, i) => { html += `<button class="quiz-btn" onclick="answer(${i})">${opt}</button>`; });
+    html += `</div><div class="quiz-feedback" id="feedback"></div>`;
+    html += `<button class="next-btn" id="nextBtn" onclick="nextQ()">${current < questions.length - 1 ? 'Question suivante →' : 'Voir mon score 🎯'}</button>`;
+    document.getElementById('quizInner').innerHTML = html;
+    updateProgress();
+  }
+
+  function answer(idx) {
+    if (answered) return;
+    answered = true;
+    const q = questions[current];
+    const btns = document.querySelectorAll('.quiz-btn');
+    btns.forEach(b => b.disabled = true);
+    const feedback = document.getElementById('feedback');
+    if (idx === q.ans) {
+      btns[idx].classList.add('correct');
+      feedback.textContent = '✅ Correct ! Bien joué.';
+      feedback.className = 'quiz-feedback ok';
+      score++;
+    } else {
+      btns[idx].classList.add('wrong');
+      btns[q.ans].classList.add('correct');
+      feedback.textContent = `❌ La bonne réponse était : "${q.opts[q.ans]}"`;
+      feedback.className = 'quiz-feedback ko';
+    }
+    document.getElementById('nextBtn').style.display = 'inline-block';
+  }
+
+  function nextQ() {
+    current++;
+    if (current < questions.length) { renderQuestion(); } else { showScore(); }
+  }
+
+  function showScore() {
+    document.getElementById('quizInner').style.display = 'none';
+    document.getElementById('scoreBox').style.display = 'block';
+    document.getElementById('scoreBig').textContent = `${score} / ${questions.length}`;
+    const pct = score / questions.length;
+    let msg = pct === 1 ? '🔥 Parfaite ! Elle est prête pour le bac !' : pct >= 0.7 ? '👍 Très bien !' : pct >= 0.5 ? '😅 Continue à pratiquer !' : '📚 Relis la liste et retente !';
+    document.getElementById('scoreMsg').textContent = msg;
+    document.getElementById('progressBar').style.width = '100%';
+  }
+
+  function startQuiz() { current = 0; score = 0; answered = false; renderQuestion(); }
+  startQuiz();
+</script>
+</body>
+</html>
